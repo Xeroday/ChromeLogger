@@ -15,6 +15,7 @@
   },
 
   "permissions": [
+    "file://localhost*",
     "<all_urls>",
     "tabs",
     "storage",
