@@ -79,8 +79,15 @@ var kittenGenerator = {
 
 function get() {
   chrome.storage.local.get(function(x) {
-    alert(JSON.parse(x));
-  });
+    console.log('popup', x);
+    for (var key in x) {
+      var val = x[key];
+      var textbox = document.createElement('input');
+      textbox.type = 'text';
+      textbox.value = val;
+      document.body.appendChild(textbox);
+    }
+  })
 }
 
 // Run our kitten generation script as soon as the document's DOM is ready.

