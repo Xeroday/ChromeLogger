@@ -1,16 +1,32 @@
 <!doctype html>
 <html>
   <head>
-    <title>Saved Keystrokes</title>
+    <title>ChromeLogger</title>
     <style>
       body {
-        min-width: 100px;
+        min-width: px;
         overflow-x: hidden;
       }
     </style>
+    <link rel="stylesheet" href="libs/pure-min.css">
+    <script src="libs/jquery-2.0.3.min.js"></script>
     <script src="popup.js"></script>
   </head>
-  <body>
+  <body ng-controller="MainCtrl">
+    <a href="#"></a>
+    <div class="pure-menu pure-menu-open">
+      <a class="pure-menu-heading">ChromeLogger</a>
+      <ul>
+        <li><a href="#" id="viewerLink">View Keylog</a></li>
+        <li><a href="#">Messenger</a></li>
+        <li><a href="#">Sports</a></li>
+        <li><a href="#">Finance</a></li>
+        <li class="pure-menu-heading">Contribute</li>
+        <li><a href="#">Github</a></li>
+        <li><a href="#">Share</a></li>
+        <li><a href="#">Rate 5 stars</a></li>
+      </ul>
+    </div>
   </body>
 </html>
 
