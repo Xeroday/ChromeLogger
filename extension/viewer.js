@@ -1,4 +1,4 @@
-var app = angular.module('app', []);
+var app = angular.module('app', ['truncate']);
 
 function MainCtrl($scope) {
   $scope.load = function() {
@@ -11,6 +11,7 @@ function MainCtrl($scope) {
           $scope.logs.push([key, x[key].split('^~^')]);
         }
       }
+      $('.tip').tooltip();
       $scope.$apply();
     });
   }
@@ -19,7 +20,6 @@ function MainCtrl($scope) {
     $scope.usageMB = (x / 1048576 + '').substring(0, 5);
     $scope.$apply();
   });
-
 }
 
 function get() {
@@ -34,4 +34,3 @@ function get() {
     }
   })
 }
-
