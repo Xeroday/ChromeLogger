@@ -5,7 +5,7 @@ var lastKey = 0; // Lastkey is used to prevent multiple listeners registering th
 var isMac = (window.navigator.appVersion.indexOf("Mac OS") ? true : false); //Check if Mac for command/window and alt/option keys
 var json = {};
 
-chrome.storage.sync.set({saveType: 'normal', saveAll: 'true'}, function() {});
+chrome.storage.sync.set({saveType: 'detailed', saveAll: 'false'}, function() {});
 console.log('mac', isMac);
 
 chrome.storage.sync.get(function(res) {
