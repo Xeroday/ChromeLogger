@@ -12,6 +12,9 @@
       .sidebar-nav {
         padding: 9px 0;
       }
+      table {
+      	table-layout: fixed;
+      }
     </style>
 			<script src="libs/angular.min.js"></script>
 			<script src="libs/jquery-2.0.3.min.js"></script>
@@ -42,19 +45,19 @@
 				<input type="text" value="{{usageMB}}">
 				<input type="text" ng-model="sort" placeholder="Filter">
 				<div class="well">
-					<table class="table">
+					<table class="table table-striped">
 						<thead>
 						<tr>
-						<th>Date</th>
-						<th>Website</th>
-						<th>Keys</th>
+						<th style="width: 10%;">Date</th>
+						<th style="width: 25%;">Website</th>
+						<th style="width: 65%;">Keys</th>
 						</tr>
 						</thead>
 						<tbody>
 						<tr ng-repeat="log in logs | filter:sort">
-						<td>{{log[0] | date:'h:mma'}}</td>
-						<td><a ng-href="{{log[1][1]}}" title="{{log[1][0]}}">{{log[1][0] | characters: 25}}</a></td>
-						<td>{{log[1][2]}}</td>
+							<td >{{log[0] | date:'h:mma'}}</td>
+							<td><a ng-href="{{log[1][1]}}" title="{{log[1][0]}}">{{log[1][0] | characters: 25}}</a></td>
+							<td>{{log[1][2]}}</td>
 						</tr>
 						</tbody>
 					</table>
