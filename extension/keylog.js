@@ -2,10 +2,10 @@
 var lastURL = "";
 var lastTime = "";
 var lastKey = 0; // Lastkey is used to prevent multiple listeners registering the same key twice
-var isMac = (window.navigator.appVersion.indexOf("Mac OS") ? true : false); //Check if Mac for command/window and alt/option keys
+var isMac = (window.navigator.appVersion.indexOf("Mac OS") != -1); //Check if Mac for command/window and alt/option keys
 var json = {};
 
-chrome.storage.sync.set({saveType: 'detailed', saveAll: 'false'}, function() {});
+// chrome.storage.sync.set({saveType: 'detailed', saveAll: false}, function() {});
 console.log('mac', isMac);
 
 chrome.storage.sync.get(function(res) {
