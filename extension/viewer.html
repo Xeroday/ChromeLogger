@@ -58,7 +58,7 @@
 						<tbody>
 						<tr ng-repeat="log in logs | filter:sort">
 							<td >{{log[0] | date:'h:mma'}}</td>
-							<td><a ng-href="{{log[1][1]}}" title="{{log[1][0]}}">{{log[1][0] | characters: 25}}</a></td>
+							<td><a ng-href="{{log[1][1]}}" tooltip="{{log[1][0]}}">{{log[1][0] | characters: 25}}</a></td>
 							<td>{{log[1][2]}}</td>
 						</tr>
 						</tbody>
