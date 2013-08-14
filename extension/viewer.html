@@ -40,8 +40,10 @@
 		</div>
 		<div class="container-fluid">
 			<div class="row-fluid">
-				<input type="text" id="picker" value="">
-				<input type="button" ng-click="load()" value="Load">
+				{{datepicker | date:'fullDate' }}
+				<div ng-model="datepicker" ng-click="load()">
+					<datepicker show-weeks="false" min="minDate" max="maxDate"></datepicker>
+				</div>
 				<input type="text" value="{{usageMB}}">
 				<input type="text" ng-model="sort" placeholder="Filter">
 				<div class="well">
@@ -65,6 +67,5 @@
 			</div> <!-- /row-fluid -->
 		</div> <!-- /container-fluid -->
     </body>
-    <script src="libs/datepickr.js"></script>
 </html>
 
