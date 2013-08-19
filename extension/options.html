@@ -11,9 +11,6 @@
       .sidebar-nav {
         padding: 9px 0;
       }
-      table {
-      	table-layout: fixed;
-      }
     	</style>
 			<script src="libs/angular.min.js"></script>
 			<script src="libs/jquery-2.0.3.min.js"></script>
@@ -39,16 +36,19 @@
 		</div>
 		<div class="container-fluid">
 			<div class="row-fluid">
-				<select ng-model="saveType" ng-change="save()">
-					<option value="normal">Normal</option>
-					<option value="detailed">Detailed</option>
-				</select>
+			Keylog Save Type
+			<select ng-model="saveType" ng-change="save()">
+				<option value="normal">Normal</option>
+				<option value="detailed">Detailed</option>
+			</select>
+			Save All Sites
+			<input type="checkbox" ng-model="saveAll" ng-change="save()">
+		<input type="text" ng-model="daysToClear" placeholder="Clear logs older than X days">
+		<input type="button" ng-model="clear" ng-click="clear()" value="Clear">
 
-				<input type="checkbox" ng-model="saveAll" ng-change="save()">
+		<input type="checkbox" ng-model="allKeys" ng-change="save()" ng-disabled="saveType == 'normal'">
 
-				<input type="text" ng-model="daysToClear" placeholder="Days to clear">
-				<input type="button" ng-model="clear" ng-click="clear()" value="Clear">
-				{{usageMB}} MB used
+		{{usageMB}} MB used
 			</div> <!-- /row-fluid -->
 		</div> <!-- /container-fluid -->
     </body>

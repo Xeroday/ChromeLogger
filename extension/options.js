@@ -11,13 +11,14 @@ function OptionsCtrl($scope, $route) {
   chrome.storage.sync.get(function(results) {
   	console.log(results);
   	$scope.saveType = results.saveType;
-  	$scope.saveAll = results.saveAll;
+    $scope.saveAll = results.saveAll;
+  	$scope.allKeys = results.allKeys;
   	$scope.$apply();
   });
 
   $scope.save = function() { // Handle option changes
-		console.log($scope.saveType, $scope.saveAll);
-		chrome.storage.sync.set({saveType: $scope.saveType, saveAll: $scope.saveAll}, saved);
+		console.log($scope.saveType, $scope.saveAll, $scope.allKeys);
+		chrome.storage.sync.set({saveType: $scope.saveType, saveAll: $scope.saveAll, allKeys: $scope.allKeys}, saved);
 	}
 
 	$scope.clear = function() {

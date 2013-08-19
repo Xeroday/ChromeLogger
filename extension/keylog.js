@@ -5,7 +5,6 @@ var lastKey = 0; // Lastkey is used to prevent multiple listeners registering th
 var isMac = (window.navigator.appVersion.indexOf("Mac OS") != -1); //Check if Mac for command/window and alt/option keys
 var json = {};
 
-// chrome.storage.sync.set({saveType: 'detailed', saveAll: false}, function() {});
 console.log('mac', isMac);
 
 chrome.storage.sync.get(function(res) {
@@ -36,7 +35,7 @@ chrome.storage.sync.get(function(res) {
 			var now = utc();
 			if (now - lastKey > 10) {
 				lastKey = now;
-				key = getKey(e);
+				key = getKey(e, res.allKeys);
 				if (e.view.document.URL != lastURL) {
 					lastURL = e.view.document.URL;
 					lastTime = now;
@@ -54,9 +53,9 @@ function utc() {
 	return new Date().getTime();
 }
 
-function getKey(event) {
+function getKey(event, allKeys) {
 	charCode = event.keyCode;
-	if ((charCode > 47 && charCode < 91) || charCode == 32) { //Keyboard letters and numbers 
+	if ((charCode > 47 && charCode < 91) || charCode == 32) { //Keyboard letters and numbers or space
 		return (event.shiftKey ? String.fromCharCode(charCode) : String.fromCharCode(charCode).toLowerCase());
 	} else { //Symbols and whatnot
 		if (charCode == 8) {
@@ -67,53 +66,53 @@ function getKey(event) {
 			return "[ENTER]"; //  enter
 		} else if (charCode == 16) {
 			return "[SHIFT]"; //  shift
-		} else if (charCode == 17) {
+		} else if (charCode == 17 && allKeys) {
 			return "[CTRL]"; //  ctrl
-		} else if (charCode == 18) {
+		} else if (charCode == 18 && allKeys) {
 			if (isMac) {
 				return "[OPTION]";
 			} else {
 				return "[ALT]"; //  alt
 			}
-		} else if (charCode == 19) {
+		} else if (charCode == 19 && allKeys) {
 			return "[PAUSE/BREAK]"; //  pause/break
 		} else if (charCode == 20) {
 			return "[CAPS LOCK]"; //  caps lock
-		} else if (charCode == 27) {
+		} else if (charCode == 27 && allKeys) {
 			return "[ESC]"; //  escape
-		} else if (charCode == 33) {
+		} else if (charCode == 33 && allKeys) {
 			return "[PG UP]"; // page up, to avoid displaying alternate character and confusing people	         
-		} else if (charCode == 34) {
+		} else if (charCode == 34 && allKeys) {
 			return "[PG DOWN]"; // page down
-		} else if (charCode == 35) {
+		} else if (charCode == 35 && allKeys) {
 			return "[END]"; // end
-		} else if (charCode == 36) {
+		} else if (charCode == 36 && allKeys) {
 			return "[HOME]"; // home
-		} else if (charCode == 37) {
+		} else if (charCode == 37 && allKeys) {
 			return "[LEFT]"; // left arrow
-		} else if (charCode == 38) {
+		} else if (charCode == 38 && allKeys) {
 			return "[UP]"; // up arrow
-		} else if (charCode == 39) {
+		} else if (charCode == 39 && allKeys) {
 			return "[RIGHT]"; // right arrow
-		} else if (charCode == 40) {
+		} else if (charCode == 40 && allKeys) {
 			return "[DOWN]"; // down arrow
-		} else if (charCode == 45) {
+		} else if (charCode == 45 && allKeys) {
 			return "[INSERT]"; // insert
 		} else if (charCode == 46) {
 			return "[DELETE]"; // delete
-		} else if (charCode == 91) {
+		} else if (charCode == 91 && allKeys) {
 			if (isMac) {
 				return "[L COMMAND]";
 			} else {
 				return "[L WINDOW]"; // left window
 			}
-		} else if (charCode == 92) {
+		} else if (charCode == 92 && allKeys) {
 			if (isMac) {
 				return "[R COMMAND]";
 			} else {
 				return "[R WINDOW]"; // right window
 			}
-		} else if (charCode == 93) {
+		} else if (charCode == 93 && allKeys) {
 			if (isMac) {
 				return "[R COMMAND]";
 			} else {
@@ -150,29 +149,29 @@ function getKey(event) {
 		} else if (charCode == 111) {
 			return "[DIVIDE]"; // divide
 		} else if (charCode == 112) {
-			return "F1"; // F1
+			return "[F1]"; // F1
 		} else if (charCode == 113) {
-			return "F2"; // F2
+			return "[F2]"; // F2
 		} else if (charCode == 114) {
-			return "F3"; // F3
+			return "[F3]"; // F3
 		} else if (charCode == 115) {
-			return "F4"; // F4
+			return "[F4]"; // F4
 		} else if (charCode == 116) {
-			return "F5"; // F5
+			return "[F5]"; // F5
 		} else if (charCode == 117) {
-			return "F6"; // F6
+			return "[F6]"; // F6
 		} else if (charCode == 118) {
-			return "F7"; // F7
+			return "[F7]"; // F7
 		} else if (charCode == 119) {
-			return "F8"; // F8
+			return "[F8]"; // F8
 		} else if (charCode == 120) {
-			return "F9"; // F9
+			return "[F9]"; // F9
 		} else if (charCode == 121) {
-			return "F10"; // F10
+			return "[F10]"; // F10
 		} else if (charCode == 122) {
-			return "F11"; // F11
+			return "[F11]"; // F11
 		} else if (charCode == 123) {
-			return "F12"; // F12
+			return "[F12]"; // F12
 		} else if (charCode == 144) {
 			return "[NUM LOCK]"; // num lock
 		} else if (charCode == 145) {
@@ -200,7 +199,7 @@ function getKey(event) {
 		} else if (charCode == 222) {
 			return "'"; // single quote
 		} else {
-			return " "
+			return ""
 		}
 	}
 }
