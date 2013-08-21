@@ -1,6 +1,6 @@
-var app = angular.module('app', ['truncate']);
+var app = angular.module('app', ['ngProgress']);
 
-function OptionsCtrl($scope, $route) {
+function OptionsCtrl($scope, $route, progressbar) {
 
   chrome.storage.local.getBytesInUse(function(x) {
     $scope.usageMB = (x / 1048576 + '').substring(0, 5);

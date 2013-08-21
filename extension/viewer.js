@@ -1,6 +1,6 @@
-var app = angular.module('app', ['truncate', 'ui.bootstrap']);
+var app = angular.module('app', ['truncate', 'ngProgress', 'ui.bootstrap']);
 
-function MainCtrl($scope) {
+function MainCtrl($scope, progressbar) {
   
   $scope.datepicker = new Date(new Date().setHours(0, 0, 0));
   $scope.maxDate = new Date();
