@@ -21,6 +21,10 @@ function OptionsCtrl($scope, $route, progressbar) {
 		chrome.storage.sync.set({saveType: $scope.saveType, saveAll: $scope.saveAll, allKeys: $scope.allKeys}, saved);
 	}
 
+  $scope.save = function() {
+    console.log('Saved');
+  }
+
 	$scope.clear = function() {
     var clearLimit = new Date(Date.now() - (86400000 * $scope.daysToClear)).getTime();
     chrome.storage.local.get(function(x) {
@@ -36,9 +40,4 @@ function OptionsCtrl($scope, $route, progressbar) {
       });
     });
 	}
-}
-
-function saved() {
-	console.log('saved');
-	//Some alert message 
 }
