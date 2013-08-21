@@ -31,10 +31,10 @@ function OptionsCtrl($scope, $route) {
         }
       }
       chrome.storage.local.remove(trash, function() {
-      	$route.reload();
+      	$scope.$apply();
+        $route.reload();
       });
     });
-
 	}
 }
 

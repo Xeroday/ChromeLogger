@@ -11,6 +11,16 @@
       .sidebar-nav {
         padding: 9px 0;
       }
+      select {
+        border: 1px solid #ABADB3;
+        margin: 0;
+        padding: auto 0;
+        font-size:14px;
+    	}
+    	table {
+    		border: 0;
+    		width: 500px;
+    	}
     	</style>
 			<script src="libs/angular.min.js"></script>
 			<script src="libs/jquery-2.0.3.min.js"></script>
@@ -35,20 +45,56 @@
 			</div>
 		</div>
 		<div class="container-fluid">
+			<div class="page-header">
+				<h2>ChromeLogger Options</h2>
+			</div>
 			<div class="row-fluid">
-			Keylog Save Type
-			<select ng-model="saveType" ng-change="save()">
-				<option value="normal">Normal</option>
-				<option value="detailed">Detailed</option>
-			</select>
-			Save All Sites
-			<input type="checkbox" ng-model="saveAll" ng-change="save()">
-		<input type="text" ng-model="daysToClear" placeholder="Clear logs older than X days">
-		<input type="button" ng-model="clear" ng-click="clear()" value="Clear">
-
-		<input type="checkbox" ng-model="allKeys" ng-change="save()" ng-disabled="saveType == 'normal'">
-
-		{{usageMB}} MB used
+				<p class="lead">Keylog Save Type</p>
+				<p>
+					<ul>
+						<li>"Normal" keylogging mode records basic key presses.</li>
+						<li>"Detailed" keylogging mode records all keyboard buttons (incl. backspace, shift, etc...).</li>
+						<li>"Log System Keys" will record all system keys, such as CTRL and ALT. It is only available if you select Detailed keylogging.</li>
+					</ul>
+					<table>
+						<tr>
+							<td><b>Keylogging mode: </b></td>
+							<td><select ng-model="saveType" ng-change="save()">
+								<option value="normal">Normal</option> 
+								<option value="detailed">Detailed</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td><b>Log System Keys:</b></td>
+							<td><input type="checkbox" ng-model="allKeys" ng-change="save()" ng-disabled="saveType == 'normal'"></td>
+						</tr>
+					</table>
+				</p>
+				<hr>
+				<p class="lead">Save All Sites</p>
+				<p>
+					<ul>
+						<li>Enabled: Every website that is visited will be logged.</li>
+						<li>Disabled: A website will be logged only if keys are typed and logged for that website.</li>
+					</ul>
+					<table>
+						<tr>
+							<td><b>Log All Websites:</b></td>
+							<td><input type="checkbox" ng-model="saveAll" ng-change="save()"></td>
+						</tr>
+					</table>
+				</p>
+				<hr>
+				<p class="lead">Clear Old Logs</p>
+				<p>
+					You are currently using {{usageMB}} MB of storage.
+					<table>
+						<tr>
+							<td><b>Clear logs older than <input type="text" ng-model="daysToClear" placeholder="7" class="input-small"> days.</b></td>
+							<td><input type="button" ng-model="clear" ng-click="clear()" value="Clear"></td>
+						</tr>
+					</table>
+				</p>
 			</div> <!-- /row-fluid -->
 		</div> <!-- /container-fluid -->
     </body>
