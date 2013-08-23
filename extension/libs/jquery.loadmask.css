@@ -22,7 +22,7 @@
 }
 .loadmask-msg div {
     padding:5px 10px 5px 25px;
-    background: #fbfbfb url('../img/loading.gif') no-repeat 5px 5px;
+    background: #fbfbfb url('/img/loading.gif') no-repeat 5px 5px;
     line-height: 16px;
 	border:1px solid #a3bad9;
     color:#222;
