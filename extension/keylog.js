@@ -15,13 +15,14 @@ chrome.storage.sync.get(function(res) {
 		chrome.storage.local.set(json, function() { console.log('new site'); });
 	}
 	if (res.saveType == "normal") {
-		document.addEventListener('keypress', function (e) {
+		window.addEventListener('keypress', function (e) {
 			var now = utc();
 			if (now - lastKey > 10) { // Stop duplicates (most people cannot press 2 keys in 10 milliseconds)
 				lastKey = now;
 				key = String.fromCharCode(e.keyCode);
 				if (e.view.document.URL != lastURL && key.trim().length > 0) { // Keys depend on URL's, new URL = new key
 					lastURL = e.view.document.URL;
+					console.log(lastURL);
 					lastTime = now;
 					json[lastTime] = e.view.document.title + "^~^" + e.view.document.URL + "^~^" + key;
 				} else { // Append to existing key
@@ -31,7 +32,7 @@ chrome.storage.sync.get(function(res) {
 			}
 		});
 	} else if (res.saveType == "detailed") {
-		document.addEventListener('keydown', function (e) {
+		window.addEventListener('keydown', function (e) {
 			var now = utc();
 			if (now - lastKey > 10) {
 				lastKey = now;
