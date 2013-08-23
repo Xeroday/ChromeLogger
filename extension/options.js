@@ -1,4 +1,4 @@
-var app = angular.module('app', ['']);
+var app = angular.module('app', []);
 
 function OptionsCtrl($scope, $route) {
 
@@ -30,7 +30,7 @@ function OptionsCtrl($scope, $route) {
     chrome.storage.local.get(function(x) {
       var trash = []; // Create array of keys to delete
       for (var key in x) {
-        if (key < clearLimit) { 
+        if (key < clearLimit || isNaN(key) || key < 10000) { // Restrict by time and remove invalid chars 
           trash.push(key);
         }
       }

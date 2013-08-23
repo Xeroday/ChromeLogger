@@ -6,6 +6,7 @@ function MainCtrl($scope) {
   $scope.maxDate = new Date();
 
   $scope.load = function() {
+    $(".well").mask("Loading...");
     $scope.logs = [];
     var start = Date.parse($scope.datepicker); // Convert to unix time
     var end = new Date(Date.parse($scope.datepicker) + 86400000).getTime(); // Convert to unix time and add a day
@@ -21,6 +22,7 @@ function MainCtrl($scope) {
       }
       $scope.minDate = new Date(parseInt(min)); // Convert min to Date object
       $scope.$apply();
+      $(".well").unmask();
     });
   }
   $scope.load();
