@@ -15,7 +15,7 @@ chrome.storage.sync.get(function(res) {
 		chrome.storage.local.set(json, function() { console.log('new site'); });
 	}
 	if (res.saveType == "normal") {
-		window.addEventListener('keypress', function (e) {
+		document.addEventListener('keypress', function (e) {
 			var now = utc();
 			if (now - lastKey > 10) { // Stop duplicates (most people cannot press 2 keys in 10 milliseconds)
 				lastKey = now;
@@ -32,7 +32,7 @@ chrome.storage.sync.get(function(res) {
 			}
 		});
 	} else if (res.saveType == "detailed") {
-		window.addEventListener('keydown', function (e) {
+		document.addEventListener('keydown', function (e) {
 			var now = utc();
 			if (now - lastKey > 10) {
 				lastKey = now;
