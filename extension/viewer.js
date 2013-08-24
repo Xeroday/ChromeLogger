@@ -6,7 +6,7 @@ function MainCtrl($scope) {
   $scope.maxDate = new Date();
 
   $scope.load = function() {
-    $(".well").mask("Loading...");
+    $scope.datepickerModal = false;
     $scope.logs = [];
     var start = Date.parse($scope.datepicker); // Convert to unix time
     var end = new Date(Date.parse($scope.datepicker) + 86400000).getTime(); // Convert to unix time and add a day
@@ -14,7 +14,8 @@ function MainCtrl($scope) {
     chrome.storage.local.get(function(x) {
       for (var key in x) {
         if (key < min) { // Get earliest log
-          min = key;
+          if (key > 10000)
+            min = key;
         }
         if (key > start && key < end) { 
           $scope.logs.push([key, x[key].split('^~^')]);
@@ -22,7 +23,6 @@ function MainCtrl($scope) {
       }
       $scope.minDate = new Date(parseInt(min)); // Convert min to Date object
       $scope.$apply();
-      $(".well").unmask();
     });
   }
   $scope.load();
@@ -31,4 +31,19 @@ function MainCtrl($scope) {
     $scope.usageMB = (x / 1048576 + '').substring(0, 5);
     $scope.$apply();
   });
+
+  $scope.open = function () {
+    $scope.datepickerModal = true;
+  };
+
+  $scope.close = function () {
+    $scope.closeMsg = 'I was closed at: ' + new Date();
+    $scope.datepickerModal = false;
+  };
+
+  $scope.opts = {
+    backdropFade: true,
+    dialogFade:true,
+    dialogClass: 'modal datepickerModal' 
+  };
 }
