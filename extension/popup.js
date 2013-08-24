@@ -5,4 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
   $('#optionsLink').click(function() {
     chrome.tabs.create({url: "/options.html"});
   });
+  $('#aboutLink').click(function() {
+    chrome.tabs.create({url: "/about.html"});
+  });
 });
