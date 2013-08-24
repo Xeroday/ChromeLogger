@@ -199,6 +199,8 @@ function getKey(event, allKeys) {
 			return "]"; // close bracket
 		} else if (charCode == 222) {
 			return "'"; // single quote
+		} else {
+			return "";
 		}
 	}
 }
