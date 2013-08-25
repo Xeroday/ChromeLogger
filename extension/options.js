@@ -18,10 +18,10 @@ function OptionsCtrl($scope, $route) {
 
   $scope.save = function() { // Handle option changes
 		console.log($scope.saveType, $scope.saveAll, $scope.allKeys);
-		chrome.storage.sync.set({saveType: $scope.saveType, saveAll: $scope.saveAll, allKeys: $scope.allKeys}, saved);
+		chrome.storage.sync.set({saveType: $scope.saveType, saveAll: $scope.saveAll, allKeys: $scope.allKeys}, $scope.saved);
 	}
 
-  $scope.save = function() {
+  $scope.saved = function() {
     console.log('Saved');
   }
 
