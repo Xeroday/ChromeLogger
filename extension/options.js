@@ -9,10 +9,15 @@ function OptionsCtrl($scope, $route) {
 
   // Page load functions
   chrome.storage.sync.get(function(results) {
-  	console.log(results);
   	$scope.saveType = results.saveType;
     $scope.saveAll = results.saveAll;
   	$scope.allKeys = results.allKeys;
+    if (!results.saveType) {
+      $scope.saveType = "detailed";
+      $scope.saveAll = false;
+      $scope.allKeys = false;
+      $scope.save();
+    }
   	$scope.$apply();
   });
 
