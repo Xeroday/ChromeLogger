@@ -10,24 +10,13 @@
     "128": "icons/icon128.png"
   },
   "options_page": "src/options/index.html",
+  "background": {
+    "scripts": ["src/inject/inject.js"]
+  },
   "permissions": [
-    "http://*/*",
-    "https://*/*",
+    "<all_urls>",
+    "tabs",
     "storage",
     "unlimitedStorage"
-  ],
-  "web_accessible_resources": [
-    "src/inject/payload.js"
-  ],
-  "content_scripts": [
-    {
-      "matches": [
-        "http://*/*",
-        "https://*/*"
-      ],
-      "js": [
-        "src/inject/inject.js"
-      ]
-    }
   ]
 }

