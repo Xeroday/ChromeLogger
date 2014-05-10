@@ -33,16 +33,19 @@ document.addEventListener('keydown', function (e) {
 
 /* Logging */
 var time = new Date().getTime();
-var key = time + "~" + document.URL;
 var data = {};
-data[key] = "";
+var save = false;
+data[time] = document.title + "^~^" + document.URL + "^~^";
 
+/* Key'ed on JS timestamp */
 function log(input) {
-    data[key] += input;
+    data[time] += input;
+    save = true;
 }
 
+// Save data on close
 window.onbeforeunload = function() {
-    chrome.storage.local.set(data, function() { console.log("Saved", data); });
+    if (save) chrome.storage.local.set(data, function() { console.log("Saved", data); });
 }
 
 
