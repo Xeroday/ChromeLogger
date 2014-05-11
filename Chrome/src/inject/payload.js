@@ -39,12 +39,16 @@ chrome.storage.sync.get({allKeys: false}, function(settings) {
 var time = new Date().getTime();
 var data = {};
 var save = false;
+var lastLog = time;
 data[time] = document.title + "^~^" + document.URL + "^~^";
 
 /* Key'ed on JS timestamp */
 function log(input) {
+    var now = new Date().getTime();
+    if (now - lastLog < 10) return; // Remove duplicate keys (typed within 10 ms) caused by allFrames injection
     data[time] += input;
     save = true;
+    lastLog = now;
 }
 
 // Save data on close
