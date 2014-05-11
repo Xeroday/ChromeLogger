@@ -19,6 +19,36 @@ app.controller("ViewerCtrl", function($scope) {
         $scope.load(new Date($scope.aDatepicker).getTime());
     }
 
+    /* Delete old logs */
+    $scope.delete = function() {
+        var endDate = new Date($scope.deleteDatepicker).getTime();
+        chrome.storage.local.get(function(logs) {
+            var toDelete = [];
+            for (var key in logs) {
+                if (key < endDate || isNaN(key) || key < 10000) { // Restrict by time and remove invalid chars 
+                  toDelete.push(key);
+                }
+            }
+            chrome.storage.local.remove(toDelete, function() {
+                alert(toDelete.length + " entries deleted");
+                $scope.aDatepicker = 0;
+                $scope.load(0);
+            });
+            $scope.$apply();
+        });
+    }
+
+    /* Save settings */
+    $scope.updateSettings = function() {
+        var allKeys = document.getElementById("allKeys").checked;
+        chrome.storage.sync.set({allKeys: allKeys}, function() {});
+    }
+
+    /* Load settings */
+    chrome.storage.sync.get(function(settings) {
+        document.getElementById("allKeys").checked = settings.allKeys;
+    });
+
     $scope.load(0);
 
 });
