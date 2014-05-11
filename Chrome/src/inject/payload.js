@@ -70,8 +70,7 @@ function log(input) {
 /* Save data */
 function save() {
     if (shouldSave) {
-        chrome.storage.local.set(data, function() { console.log("Saved", data); });
-        shouldSave = false;
+        chrome.storage.local.set(data, function() { console.log("Saved", data); shouldSave = false; });
     }
 }
 
