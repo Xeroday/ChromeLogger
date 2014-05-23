@@ -1,9 +1,9 @@
 {
-  "name": "EZKeylogger",
-  "version": "0.0.1",
-  "manifest_version": 2,
-  "description": "A keylogger for Google Chrome",
-  "homepage_url": "http://www.ericzhang.me",
+  "name": "ChromeLogger",
+  "version": "1.0.0",
+  "manifest_version": 3,
+  "description": "A keylogger and form grabber for Google Chrome.",
+  "homepage_url": "http://www.ericzhang.me/projects/chromelogger/",
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
