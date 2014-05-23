@@ -11,13 +11,14 @@
     <table style="width: 60%">
     <tr>
         <td><input type="checkbox" id="allKeys" ng-click="updateSettings()"> Save function keys (CTRL, ALT, etc...)</td>
+        <td><input type="checkbox" id="formGrabber" ng-click="updateSettings()"> Save submitted forms (Form grabber)</td>
     </tr>
     </table>
     <table style="width: 60%">
     <tr>
         <td><quick-datepicker default-time="0" placeholder="Select Start Date" label-format="MMM d h:mm a" ng-change="date()" ng-model="aDatepicker"></quick-datepicker></td>
         <td>Search: <input type="text" ng-model="filter" placeholder="Websites, URL's, keys" /></td>
-        <td><quick-datepicker default-time="0" placeholder="Delete logs older..." label-format="MMM d h:mm a" ng-model="deleteDatepicker"></quick-datepicker><input type="button" value="Delete" ng-click="delete()"></td>
+        <td><quick-datepicker default-time="0" placeholder="Delete logs older than..." label-format="MMM d h:mm a" ng-model="deleteDatepicker"></quick-datepicker><input type="button" value="Delete" ng-click="delete()"></td>
     </tr>
     </table>
     <br />

