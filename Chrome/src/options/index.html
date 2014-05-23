@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html ng-app="app">
 <head>
-	<title></title>
+	<title>ChromeLogger</title>
     <script src="lib/angular.min.js"></script>
     <script src="lib/ng-quick-date.js"></script>
     <link rel="stylesheet" type="text/css" href="lib/ng-quick-date-plus-default-theme.css" media="all" />
@@ -32,7 +32,7 @@
     </thead>
     <tbody>
     <tr ng-repeat="log in logs | filter:filter">
-        <td >{{log[0] | date:'MMM d h:mm a'}}</td>
+        <td>{{log[0] | date:'MMM d h:mm a'}}</td>
         <td><a ng-href="{{log[1][1]}}" title="{{log[1][0]}}" target="_blank">{{log[1][0]|truncate:25}}</a></td>
         <td>{{log[1][2]}}</td>
     </tr>
