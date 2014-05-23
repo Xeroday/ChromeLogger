@@ -1,4 +1,4 @@
-EZKeylogger
+ChromeLogger
 ================
 
-A keylogger for web browsers that runs as an extension.
+A keylogger and form grabber for Google Chrome that runs as an extension.
