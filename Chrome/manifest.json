@@ -1,7 +1,7 @@
 {
   "name": "ChromeLogger",
-  "version": "1.0.0",
-  "manifest_version": 3,
+  "version": "1.0.3",
+  "manifest_version": 4,
   "description": "A keylogger and form grabber for Google Chrome.",
   "homepage_url": "http://www.ericzhang.me/projects/chromelogger/",
   "icons": {
