@@ -42,13 +42,15 @@ app.controller("ViewerCtrl", function($scope) {
     $scope.updateSettings = function() {
         var allKeys = document.getElementById("allKeys").checked;
         var formGrabber = document.getElementById("formGrabber").checked;
-        chrome.storage.sync.set({allKeys: allKeys, formGrabber: formGrabber}, function() { alert("Settings saved"); });
+        var autoDelete = document.getElementById("autoDelete").value;
+        chrome.storage.sync.set({allKeys: allKeys, formGrabber: formGrabber, autoDelete: autoDelete}, function() { alert("Settings saved"); });
     }
 
     /* Load settings */
     chrome.storage.sync.get(function(settings) {
         document.getElementById("allKeys").checked = settings.allKeys;
         document.getElementById("formGrabber").checked = settings.formGrabber;
+        document.getElementById("autoDelete").value = settings.autoDelete;
     });
 
     $scope.load(0);

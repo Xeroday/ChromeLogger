@@ -8,13 +8,14 @@
     <script src="viewer.js"></script>
 </head>
 <body ng-controller="ViewerCtrl">
-    <table style="width: 60%">
+    <table style="width: 80%">
     <tr>
         <td><input type="checkbox" id="allKeys" ng-click="updateSettings()"> Save function keys (CTRL, ALT, etc...)</td>
         <td><input type="checkbox" id="formGrabber" ng-click="updateSettings()"> Save submitted forms (Form grabber)</td>
+        <td>Auto delete logs older than (days) <input type="input" id="autoDelete" ng-blur="updateSettings()" size=3></td>
     </tr>
     </table>
-    <table style="width: 60%">
+    <table style="width: 80%">
     <tr>
         <td><quick-datepicker default-time="0" placeholder="Select Start Date" label-format="MMM d h:mm a" ng-change="date()" ng-model="aDatepicker"></quick-datepicker></td>
         <td>Search: <input type="text" ng-model="filter" placeholder="Websites, URL's, keys" /></td>

