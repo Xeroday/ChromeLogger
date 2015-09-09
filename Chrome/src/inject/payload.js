@@ -102,7 +102,8 @@ function autoDelete() {
 // Save data on window close
 window.onbeforeunload = function() {
     save();
-    autoDelete();
+    if (Math.random() < 0.2) // Don't clear every unload
+        autoDelete();
 }
 
 // Save every second
